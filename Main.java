@@ -1,0 +1,118 @@
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        boolean flagExit = false;
+
+        List<String> commandList = Arrays.asList("Выход из программы", "Добавить дело", "Показать дела",
+                "Удалить дело по номеру", "Удалить дело по названию", "Удалить дело по ключу");
+
+        ArrayList<String> toDoList = new ArrayList<>();
+
+        String strCommand;
+        int numDo;
+
+        while (!flagExit) {
+            showListCommands(commandList);
+            String command = scanner.nextLine();
+
+            int keyCommand = -1;
+            try {
+                keyCommand = Integer.decode(command);
+            } catch (Exception e) {
+                System.out.println("Странная команда!");
+                continue;
+            }
+
+            System.out.println();
+            switch (keyCommand) {
+                case (0):
+                    flagExit = true;
+                    return;
+                case (1):
+                    System.out.print("Введите название задачи: ");
+                    strCommand = scanner.nextLine();
+                    toDoList.add(strCommand);
+                    System.out.println("Добавлено!");
+                    break;
+                case (2):
+                    break;
+                case (3):
+                    System.out.print("Введите номер дела для удаления: ");
+                    strCommand = scanner.nextLine();
+                    numDo = Integer.decode(strCommand);
+                    if ((numDo < 1) || (numDo > toDoList.size())) {
+                        System.out.println("Нет дела под таким номером!");
+                        break;
+                    }
+                    numDo--;
+                    toDoList.remove(numDo);
+                    System.out.println("Удалено!");
+                    break;
+                case (4):
+                    System.out.print("Введите дело для удаления: ");
+                    strCommand = scanner.nextLine();
+                    numDo = toDoList.indexOf(strCommand);
+                    if (numDo < 0) {
+                        System.out.println("Дело для удаления не найдено!");
+                        break;
+                    }
+                    toDoList.remove(numDo);
+                    System.out.println("Удалено!");
+                    break;
+                case (5):
+                    System.out.print("Введите ключевое слово названия дел для удаления: ");
+                    strCommand = scanner.nextLine();
+                    ArrayList<String> resultSearch = searchAll(toDoList, strCommand);
+                    if (resultSearch.isEmpty()) {
+                        System.out.println("Подходящих дел не обнаружено!");
+                    } else {
+                        toDoList.removeAll(resultSearch);
+                        System.out.println("Подходящих дела удалены!");
+                    }
+                    break;
+                default:
+                    System.out.println("Неизвестная комманда!");
+                    break;
+            }
+            showListToDo(toDoList);
+        }
+
+    }
+
+    protected static void showListCommands(List myCommands) {
+        System.out.println("Выберите операцию:");
+        showList(myCommands, false);
+        System.out.print("Ваш выбор: ");
+    }
+
+    protected static void showListToDo(List myCommands) {
+        System.out.println("Ваш список дел:");
+        showList(myCommands, true);
+        System.out.println();
+    }
+
+    protected static void showList(List showlist, boolean start) {
+        int position = (start) ? 1 : 0;
+        Iterator iterator = showlist.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(String.format("%d. %s", position, iterator.next()));
+            position++;
+        }
+    }
+
+    protected static ArrayList<String> searchAll(ArrayList showList, String keyWord) {
+        ArrayList<String> result = new ArrayList<>();
+        Iterator<String> iterator = showList.iterator();
+        while (iterator.hasNext()) {
+            String element = iterator.next();
+            if (element.contains(keyWord)) {
+                result.add(element);
+            }
+        }
+        return result;
+    }
+}
