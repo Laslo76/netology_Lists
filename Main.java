@@ -5,7 +5,6 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        boolean flagExit = false;
 
         List<String> commandList = Arrays.asList("Выход из программы", "Добавить дело", "Показать дела",
                 "Удалить дело по номеру", "Удалить дело по названию", "Удалить дело по ключу");
@@ -15,7 +14,7 @@ public class Main {
         String strCommand;
         int numDo;
 
-        while (!flagExit) {
+        while (true) {
             showListCommands(commandList);
             String command = scanner.nextLine();
 
@@ -30,7 +29,6 @@ public class Main {
             System.out.println();
             switch (keyCommand) {
                 case (0):
-                    flagExit = true;
                     return;
                 case (1):
                     System.out.print("Введите название задачи: ");
@@ -83,28 +81,28 @@ public class Main {
 
     }
 
-    protected static void showListCommands(List myCommands) {
+    protected static void showListCommands(List<String> myCommands) {
         System.out.println("Выберите операцию:");
         showList(myCommands, false);
         System.out.print("Ваш выбор: ");
     }
 
-    protected static void showListToDo(List myCommands) {
+    protected static void showListToDo(List<String> myCommands) {
         System.out.println("Ваш список дел:");
         showList(myCommands, true);
         System.out.println();
     }
 
-    protected static void showList(List showlist, boolean start) {
+    protected static void showList(List<String> showlist, boolean start) {
         int position = (start) ? 1 : 0;
-        Iterator iterator = showlist.iterator();
+        Iterator<String> iterator = showlist.iterator();
         while (iterator.hasNext()) {
-            System.out.println(String.format("%d. %s", position, iterator.next()));
+            System.out.printf("%d. %s%n", position, iterator.next());
             position++;
         }
     }
 
-    protected static ArrayList<String> searchAll(ArrayList showList, String keyWord) {
+    protected static ArrayList<String> searchAll(ArrayList<String> showList, String keyWord) {
         ArrayList<String> result = new ArrayList<>();
         Iterator<String> iterator = showList.iterator();
         while (iterator.hasNext()) {
