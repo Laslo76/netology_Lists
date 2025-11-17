@@ -5,15 +5,18 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
-        List<String> commandList = Arrays.asList("Выход из программы", "Добавить дело", "Показать дела",
-                "Удалить дело по номеру", "Удалить дело по названию", "Удалить дело по ключу");
-
         ArrayList<String> toDoList = new ArrayList<>();
+
+        List<String> commandList = new ArrayList<>();
+        commandList.add("Выход из программы");
+        commandList.add("Добавить дело");
+        commandList.add("Показать дела");
+        commandList.add("Удалить дело по номеру");
+        commandList.add("Удалить дело по названию");
+        commandList.add("Удалить дело по ключу");
 
         String strCommand;
         int numDo;
-
         while (true) {
             showListCommands(commandList);
             String command = scanner.nextLine();
@@ -78,7 +81,6 @@ public class Main {
             }
             showListToDo(toDoList);
         }
-
     }
 
     protected static void showListCommands(List<String> myCommands) {
