@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> toDoList = new ArrayList<>();
+        List<String> toDoList = new ArrayList<>();
 
         List<String> commandList = new ArrayList<>();
         commandList.add("Выход из программы");
@@ -67,7 +67,7 @@ public class Main {
                 case (5):
                     System.out.print("Введите ключевое слово названия дел для удаления: ");
                     strCommand = scanner.nextLine();
-                    ArrayList<String> resultSearch = searchAll(toDoList, strCommand);
+                    List<String> resultSearch = searchAll(toDoList, strCommand);
                     if (resultSearch.isEmpty()) {
                         System.out.println("Подходящих дел не обнаружено!");
                     } else {
@@ -104,11 +104,9 @@ public class Main {
         }
     }
 
-    protected static ArrayList<String> searchAll(ArrayList<String> showList, String keyWord) {
-        ArrayList<String> result = new ArrayList<>();
-        Iterator<String> iterator = showList.iterator();
-        while (iterator.hasNext()) {
-            String element = iterator.next();
+    protected static List<String> searchAll(List<String> showList, String keyWord) {
+        List<String> result = new ArrayList<>();
+        for (String element : showList) {
             if (element.contains(keyWord)) {
                 result.add(element);
             }
